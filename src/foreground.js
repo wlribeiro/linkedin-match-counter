@@ -1,18 +1,21 @@
 // const experiences = document.getElementsByClassName("experience-card");
 // let li = experiences[0].getElementsByTagName("li");
 
-
+var actualProfileName = null;
 // espera a pagna carregar para pegar as informações
 const interval = setInterval(() =>{
-    console.log("rodando") // mensagem de debug
     // pega a div que contem todas as experiencias do usuario
     const experiences = document.getElementsByClassName("experience-card");
+    let profileName = document.getElementsByClassName("artdeco-entity-lockup__title ember-view")[0].innerText
 
-    if(experiences){
-        parseExperieces(experiences);
-        clearInterval(interval);
+    if(actualProfileName != profileName){
+        if(experiences){
+            actualProfileName = profileName;
+            parseExperieces(experiences);
+        }
     }
-}, 1000);
+    
+}, 10);
 
 
 async function parseExperieces(experiences) {
@@ -21,11 +24,13 @@ async function parseExperieces(experiences) {
     let stacks = ""
     let companyData = "";
 
+    let targetCompanies = []
     for(let k = 0; k < li["length"]; k++){
         try {
             companyData = parseCompanyData(li[k])
             if(seeIfIsATargetCompany(companyData["name"])){
                 match += 35;
+                targetCompanies.push(companyData["name"])
             }
 
             if(companyData["summary"]){
@@ -39,7 +44,7 @@ async function parseExperieces(experiences) {
     }
 
     alert(
-        "Match com a empresa: "+ match + "%"
+        "Match com a empresa: "+ match + "%" +"\n" + targetCompanies
         );   
 }
 
@@ -53,7 +58,11 @@ function getCompanyName(li) {
         try{
             companyName = li.getElementsByClassName("grouped-position-entity__company-name")[0].textContent;
         } catch {
-            companyName = li.getElementsByClassName("background-entity__summary-definition--subtitle")[0].innerText
+            try{
+                companyName = li.getElementsByClassName("grouped-position-entity__right-content")[0].innerText
+            } catch {
+                companyName = li.getElementsByClassName("background-entity__summary-definition--subtitle")[0].innerText
+            }
         }
     } 
 
@@ -67,7 +76,11 @@ function getCompanyWorkTime(li) {
     try {
         companyWorkTime = li.getElementsByClassName("background-entity__duration")[0].textContent 
     } catch (error) {
-        companyWorkTime = li.getElementsByClassName("t-14")[0].textContent
+        try{
+            companyWorkTime = li.getElementsByClassName("t-14")[0].textContent;
+        } catch {
+            companyWorkTime = 0;
+        }
     }
 
     return companyWorkTime;
@@ -103,7 +116,6 @@ function searchForOurTechsInCompetencies() {
     let competencies = parseCompetencies();
     let num = 0;
 
-    console.log(competencies);
     num += searchForOurTechs(competencies);
     
     return num;
@@ -154,12 +166,16 @@ const target_companies = Array(
         "CI&T",
         "QuintoAndar.com",
         "UOL BoaCompra",
+        "BoaCompra",
         "VTEX The True Cloud Commerce Platform",
+        "VTEX - The True Cloud Commerce Platform",
         "Indeva by VTEX",
+        "Instituto de Pesquisas Eldorado",
         "IBM",
         "Wildlife Studios",
         "Amaro",
         "Amazon",
+        "Amazon Web Services (AWS)",
         "Avenue Code",
         "B2W Digital",
         "CargoX",
@@ -179,12 +195,12 @@ const target_companies = Array(
         "Globo.com",
         "Google",
         "Guiabolso",
-        "Gympass ",
+        "Gympass",
         "Hash",
         "Hotmart",
-        "iFood ",
+        "iFood",
         "InLoco",
-        "Linx ",
+        "Linx",
         "Liv up",
         "Loft",
         "Loggi",
@@ -195,6 +211,8 @@ const target_companies = Array(
         "Mercado livre",
         "Mercadolivre",
         "Microsoft",
+        "Softplan Planejamento de Sistemas LTDA",
+        "Softplan",
         "Movile",
         "Neon",
         "Nubank",
@@ -208,7 +226,6 @@ const target_companies = Array(
         "Passei Direto",
         "Paypal",
         "Petlove",
-        "Picpay",
         "Picpay",
         "Pipefy",
         "Pravaler",
@@ -231,7 +248,18 @@ const target_companies = Array(
         "Zé Delivery",
         "Zee.dog",
         "Zoom",
-        "buscapé"
+        "buscapé",
+        "Stone Pagamentos",
+        "PagBank PagSeguro",
+        "Compass.uol",
+        "PagSeguro UOL",
+        "UOL EdTech",
+        "BoaCompra",
+        "compasso",
+        "Loadsmart", 
+        "Linx S.A.",
+        "Rede Globo",
+        "Olist"
 )
 
 const target_techs = [

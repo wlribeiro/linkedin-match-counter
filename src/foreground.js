@@ -2,6 +2,7 @@
 // let li = experiences[0].getElementsByTagName("li");
 
 var actualProfileName = null;
+if(!document.getElementsByClassName("lkd-main")[0]){ insertNewDiv(); }
 // espera a pagna carregar para pegar as informações
 const interval = setInterval(() =>{
     // pega a div que contem todas as experiencias do usuario
@@ -17,6 +18,37 @@ const interval = setInterval(() =>{
     
 }, 10);
 
+function locationToRender(content){
+    content = ""
+    position = document.getElementsByClassName("lockup__image-container")[0].innerHTML = content;
+}
+
+function insertNewDiv(){
+    let father = document.getElementsByClassName("lockup__image-container")[0];
+    let content = "<div class='lkd-content' style='background-color: lightgreen;width: 100px; height: 100px; position: absolute; margin-top: -20px; margin-left: -100px'></div>"
+
+    var div = document.createElement('div');
+    div.setAttribute('class', 'lkd-main');
+
+    div.innerHTML = content;
+    father.appendChild(div);
+}
+// let url = "https://wlribeiro.github.io/"
+// fetch(url).then( (response) => {
+//     return response.text();
+// }).then( (response) => {
+//    locationToRender(response)
+// })
+
+function insertIntoMainDiv(match, targetCompanies) {
+    let position = document.getElementsByClassName('lkd-content')[0];
+    let content = "<p >"+ match + "%</p>";
+    for(let i =0; i < targetCompanies.length; i ++){
+        content  += "<p >"+ targetCompanies[i]+"</p>";
+    }
+
+    position.innerHTML = content;
+}
 
 async function parseExperieces(experiences) {
     let li = experiences[0].getElementsByTagName("li");
@@ -43,9 +75,7 @@ async function parseExperieces(experiences) {
         }
     }
 
-    alert(
-        "Match com a empresa: "+ match + "%" +"\n" + targetCompanies
-        );   
+    insertIntoMainDiv(match, targetCompanies)  
 }
 
 function getCompanyName(li) {
@@ -163,6 +193,7 @@ const target_companies = Array(
         "Mercado Livre Brasil",
         "Globo",
         "Sidia Instituto de Ciência e Tecnologia",
+        "SIDIA - Samsung Instituto de Desenvolvimento para a Informática da Amazônia",
         "CI&T",
         "QuintoAndar.com",
         "UOL BoaCompra",
@@ -176,6 +207,7 @@ const target_companies = Array(
         "Amaro",
         "Amazon",
         "Amazon Web Services (AWS)",
+        "AWS",
         "Avenue Code",
         "B2W Digital",
         "CargoX",
@@ -226,6 +258,7 @@ const target_companies = Array(
         "Passei Direto",
         "Paypal",
         "Petlove",
+        "Petlove&Co",
         "Picpay",
         "Pipefy",
         "Pravaler",
@@ -233,6 +266,7 @@ const target_companies = Array(
         "Quintoandar",
         "Red hat",
         "Resultados digitais",
+        "RD Station",
         "Semantix Brasil",
         "Serasa experian",
         "Stilingue",
@@ -249,6 +283,8 @@ const target_companies = Array(
         "Zee.dog",
         "Zoom",
         "buscapé",
+        "Zoom & Buscapé",
+        "Buscapé Company",
         "Stone Pagamentos",
         "PagBank PagSeguro",
         "Compass.uol",

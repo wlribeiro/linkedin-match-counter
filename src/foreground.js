@@ -81,21 +81,19 @@ async function parseExperieces(experiences) {
 function getCompanyName(li) {
     // alguns perfis com multiplos cargos não são encontrados pela classe company-link
     let companyName;
+    const parseCompanyName = (tag, className) => {
+        return tag.getElementsByClassName(className)[0].innerText.split("·")[0];
+    }
+    let classList = [
+        "background-entity__summary-definition--subtitle",
+        "grouped-position-entity__company-name"]
 
-    try{
-        companyName = li.getElementsByClassName("position-item__company-link")[0].text.trim();
-    } catch (error) {
-        try{
-            companyName = li.getElementsByClassName("grouped-position-entity__company-name")[0].textContent;
-        } catch {
-            try{
-                companyName = li.getElementsByClassName("grouped-position-entity__right-content")[0].innerText
-            } catch {
-                companyName = li.getElementsByClassName("background-entity__summary-definition--subtitle")[0].innerText
-            }
-        }
-    } 
-
+    for(let i = 0; i < classList.length; i ++){
+        try {
+            companyName = parseCompanyName(li, classList[i])
+        } catch (error){ console.log();}
+    }
+    
     return companyName;
 }
 
@@ -278,6 +276,8 @@ const target_companies = Array(
         "UOL",
         "UOL - Universo Online",
         "Via Varejo",
+        "Via Varejo SA",
+        "via",
         "Xerpa",
         "Zé Delivery",
         "Zee.dog",
@@ -292,6 +292,7 @@ const target_companies = Array(
         "UOL EdTech",
         "BoaCompra",
         "compasso",
+        "compasso UOL",
         "Loadsmart", 
         "Linx S.A.",
         "Rede Globo",

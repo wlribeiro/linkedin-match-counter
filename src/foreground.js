@@ -78,38 +78,42 @@ async function parseExperieces(experiences) {
     insertIntoMainDiv(match, targetCompanies)  
 }
 
-function getCompanyName(li) {
-    // alguns perfis com multiplos cargos não são encontrados pela classe company-link
-    let companyName;
-    const parseCompanyName = (tag, className) => {
-        return tag.getElementsByClassName(className)[0].innerText.split("·")[0];
+function getTextInATag(tag, classList) {
+    let data;
+    for(let i = 0; i < classList.length; i ++){
+        try {
+            data = tag.getElementsByClassName(classList[i])[0].innerText;
+        } catch (error){ console.log();}
     }
+
+    return data;
+}
+
+function getCompanyName(tag) {
+    // alguns perfis com multiplos cargos em uma experiencia não são encontrados pela classe principal
+    let companyName;
+
     let classList = [
         "background-entity__summary-definition--subtitle",
         "grouped-position-entity__company-name"]
 
-    for(let i = 0; i < classList.length; i ++){
-        try {
-            companyName = parseCompanyName(li, classList[i])
-        } catch (error){ console.log();}
-    }
-    
+    companyName = getTextInATag(tag, classList)
+    companyName = companyName.split("·")[0].trim();
+    console.log(companyName);
+
     return companyName;
 }
 
-function getCompanyWorkTime(li) {
+function getCompanyWorkTime(tag) {
     // tratar problema da pessoa que trabalhou em varios cargos
     let companyWorkTime
 
-    try {
-        companyWorkTime = li.getElementsByClassName("background-entity__duration")[0].textContent 
-    } catch (error) {
-        try{
-            companyWorkTime = li.getElementsByClassName("t-14")[0].textContent;
-        } catch {
-            companyWorkTime = 0;
-        }
-    }
+    let classList = [
+        "background-entity__duration",
+        "t-14"
+    ]
+
+    companyWorkTime = getTextInATag(tag, classList)
 
     return companyWorkTime;
 }

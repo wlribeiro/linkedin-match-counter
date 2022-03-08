@@ -25,7 +25,29 @@ function locationToRender(content){
 
 function insertNewDiv(){
     let father = document.getElementsByClassName("lockup__image-container")[0];
-    let content = "<div class='lkd-content' style='background-color: lightgreen;width: 100px; height: 100px; position: absolute; margin-top: -20px; margin-left: -100px'></div>"
+    let content = `<div class='lkd-content' 
+        style='
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-itens: center;
+        padding: 10px;
+        border-radius: 10px;
+        width: 100px; 
+        height: auto;
+        position: absolute; 
+        margin-top: -20px;
+        box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.37);
+        border: 0.1px solid black;
+        background-color: white;
+        font-weight: 400;
+        '>
+        
+        <div class="lkd-match">
+        </div>
+        </div>
+        
+        `
 
     var div = document.createElement('div');
     div.setAttribute('class', 'lkd-main');
@@ -41,10 +63,10 @@ function insertNewDiv(){
 // })
 
 function insertIntoMainDiv(match, targetCompanies) {
-    let position = document.getElementsByClassName('lkd-content')[0];
+    let position = document.getElementsByClassName('lkd-match')[0];
     let content = "<p >"+ match + "%</p>";
     for(let i =0; i < targetCompanies.length; i ++){
-        content  += "<p >"+ targetCompanies[i]+"</p>";
+        content  += "<p>"+ targetCompanies[i]+"</p>";
     }
 
     position.innerHTML = content;
@@ -196,7 +218,10 @@ const target_companies = Array(
         "Globo",
         "Sidia Instituto de Ciência e Tecnologia",
         "SIDIA - Samsung Instituto de Desenvolvimento para a Informática da Amazônia",
+        "SIDIA - Samsung Instituto de P&D da Amazônia",     
         "CI&T",
+        "Ci&T Software",
+        "Grupo GFT",
         "QuintoAndar.com",
         "UOL BoaCompra",
         "BoaCompra",
@@ -247,6 +272,7 @@ const target_companies = Array(
         "Microsoft",
         "Softplan Planejamento de Sistemas LTDA",
         "Softplan",
+        "Softplan Planejamento e Sistemas",
         "Movile",
         "Neon",
         "Nubank",
@@ -256,6 +282,8 @@ const target_companies = Array(
         "PagSeguro PagBank",
         "PagBank",
         "ZAP+",
+	"Grupo ZAP",
+	"Viva Real",
         "Zup Innovation",
         "Passei Direto",
         "Paypal",
@@ -280,6 +308,7 @@ const target_companies = Array(
         "UOL",
         "UOL - Universo Online",
         "Via Varejo",
+        "Ambev Tech",
         "Via Varejo SA",
         "via",
         "Xerpa",
@@ -288,6 +317,7 @@ const target_companies = Array(
         "Zoom",
         "buscapé",
         "Zoom & Buscapé",
+        "Zoom.com.br",
         "Buscapé Company",
         "Stone Pagamentos",
         "PagBank PagSeguro",
@@ -297,10 +327,14 @@ const target_companies = Array(
         "BoaCompra",
         "compasso",
         "compasso UOL",
+        "Accenture",
         "Loadsmart", 
         "Linx S.A.",
         "Rede Globo",
-        "Olist"
+        "Olist",
+        "Instituto Atlântico",
+        "Nubank Brasil",
+        "Grupo Boticário"
 )
 
 const target_techs = [

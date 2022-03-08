@@ -1,0 +1,19 @@
+{
+    "name": "Match counter",
+    "description": "Essa extenção mostra informações importantes sobre o perfil",
+    "version": "1.0.0",
+    "manifest_version": 3,
+
+    "background":{
+        "service_worker" : "src/background.js"
+    },
+
+    "host_permissions": [
+        "https://www.linkedin.com/"
+    ],
+
+    "permissions":[
+        "tabs",
+        "scripting"
+    ]
+}
